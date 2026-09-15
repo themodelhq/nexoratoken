@@ -1,0 +1,33 @@
+# NEXORA — Render Blueprint (Static Site)
+# https://render.com/docs/blueprint-spec
+#
+# Architecture: Next.js static export → out/ → Render Static Site.
+# No server runtime, no database, no background worker.
+
+services:
+  - type: web
+    name: nexora-website
+    runtime: static
+    buildCommand: npm ci && npm run build
+    publishDir: out
+    pullRequestPreviewsEnabled: true
+    autoDeploy: true
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=63072000; includeSubDomains; preload
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

@@ -1,0 +1,307 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   NEXORA — Design Tokens
+   Premium Web3 palette: dark navy + gold + silver + blue accents
+   ============================================================ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-orbitron);
+  --font-mono: var(--font-geist-mono);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* NEXORA brand tokens */
+  --color-gold: #D0A15F;
+  --color-gold-light: #E8C68A;
+  --color-gold-dark: #A87A3D;
+  --color-deep-blue: #163EA8;
+  --color-blue-highlight: #38BDF8;
+  --color-near-black: #0B1220;
+  --color-deep-bg: #050A14;
+  --color-silver: #E5E7EB;
+  --color-bright-white: #F8FAFC;
+}
+
+/* ============================================================
+   Root — intentionally dark, premium Web3 theme
+   ============================================================ */
+:root {
+  --radius: 0.75rem;
+
+  /* Deep navy/near-black base */
+  --background: #050A14;
+  --foreground: #E5E7EB;
+
+  /* Cards / panels — slightly lifted from bg */
+  --card: #0B1220;
+  --card-foreground: #E5E7EB;
+
+  --popover: #0B1220;
+  --popover-foreground: #F8FAFC;
+
+  /* Gold primary (brand) */
+  --primary: #D0A15F;
+  --primary-foreground: #0B1220;
+
+  /* Secondary — deep blue tinted */
+  --secondary: #111B33;
+  --secondary-foreground: #E5E7EB;
+
+  /* Muted surfaces */
+  --muted: #0E1626;
+  --muted-foreground: #94A3B8;
+
+  /* Accent — blue highlight */
+  --accent: #163EA8;
+  --accent-foreground: #F8FAFC;
+
+  --destructive: #EF4444;
+
+  --border: rgba(208, 161, 95, 0.14);
+  --input: rgba(208, 161, 95, 0.18);
+  --ring: #D0A15F;
+
+  --chart-1: #D0A15F;
+  --chart-2: #38BDF8;
+  --chart-3: #163EA8;
+  --chart-4: #E8C68A;
+  --chart-5: #64748B;
+
+  --sidebar: #0B1220;
+  --sidebar-foreground: #E5E7EB;
+  --sidebar-primary: #D0A15F;
+  --sidebar-primary-foreground: #0B1220;
+  --sidebar-accent: #111B33;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: rgba(208, 161, 95, 0.14);
+  --sidebar-ring: #D0A15F;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv01", "cv03";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: rgba(208, 161, 95, 0.28);
+    color: #F8FAFC;
+  }
+}
+
+/* ============================================================
+   NEXORA — Utility components
+   ============================================================ */
+@layer components {
+  .font-display {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  /* Subtle gold gradient text for hero / headings */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #F0D9A8 0%, #D0A15F 45%, #A87A3D 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-silver-gradient {
+    background: linear-gradient(180deg, #F8FAFC 0%, #E5E7EB 60%, #94A3B8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Glass panel — premium card surface */
+  .glass-panel {
+    background:
+      linear-gradient(180deg, rgba(208, 161, 95, 0.04) 0%, rgba(11, 18, 32, 0.6) 100%),
+      rgba(11, 18, 32, 0.7);
+    border: 1px solid rgba(208, 161, 95, 0.14);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-panel-hover {
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .glass-panel-hover:hover {
+    border-color: rgba(208, 161, 95, 0.4);
+    box-shadow:
+      0 0 0 1px rgba(208, 161, 95, 0.1),
+      0 18px 40px -20px rgba(208, 161, 95, 0.25);
+  }
+
+  /* Gold accent border top */
+  .gold-top-accent {
+    position: relative;
+  }
+  .gold-top-accent::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #D0A15F, transparent);
+  }
+
+  /* Section eyebrow label */
+  .section-eyebrow {
+    font-family: var(--font-display), sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.72rem;
+    color: #D0A15F;
+  }
+}
+
+/* ============================================================
+   Background fx — radial glows, grid, scanline
+   ============================================================ */
+@layer utilities {
+  .bg-nexora-grid {
+    background-image:
+      linear-gradient(to right, rgba(208, 161, 95, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(208, 161, 95, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .bg-nexora-radial {
+    background:
+      radial-gradient(60% 50% at 50% 0%, rgba(56, 189, 248, 0.10) 0%, transparent 60%),
+      radial-gradient(50% 40% at 50% 50%, rgba(208, 161, 95, 0.10) 0%, transparent 65%),
+      radial-gradient(80% 60% at 50% 100%, rgba(22, 62, 168, 0.10) 0%, transparent 70%);
+  }
+  .glow-gold {
+    box-shadow: 0 0 60px -10px rgba(208, 161, 95, 0.45);
+  }
+  .glow-blue {
+    box-shadow: 0 0 60px -10px rgba(56, 189, 248, 0.45);
+  }
+  .text-shadow-gold {
+    text-shadow: 0 0 28px rgba(208, 161, 95, 0.45);
+  }
+}
+
+/* ============================================================
+   Animations — subtle, respect prefers-reduced-motion
+   ============================================================ */
+@keyframes nexora-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes nexora-orbit-rev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes nexora-pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+@keyframes nexora-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes nexora-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes nexora-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-orbit-slow { animation: nexora-orbit 38s linear infinite; }
+.animate-orbit-slow-rev { animation: nexora-orbit-rev 52s linear infinite; }
+.animate-pulse-glow { animation: nexora-pulse-glow 6s ease-in-out infinite; }
+.animate-float { animation: nexora-float 7s ease-in-out infinite; }
+
+/* ============================================================
+   Custom scrollbar
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050A14;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D0A15F, #A87A3D);
+  border-radius: 8px;
+  border: 2px solid #050A14;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #E8C68A, #D0A15F);
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-orbit-slow,
+  .animate-orbit-slow-rev,
+  .animate-pulse-glow,
+  .animate-float {
+    animation: none !important;
+  }
+}
